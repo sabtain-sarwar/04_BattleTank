@@ -3,6 +3,7 @@
 #include "TankAIController.h"
 
 
+
 void ATankAIController::BeginPlay()
 {
 	// We want to start always by going Super::BeginPlay().Now, what that does is ,it makes sure that the BeginPlay() on the
@@ -19,6 +20,8 @@ void ATankAIController::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("AIController  found player : %s"), *(PlayerTank->GetName()));
 	}
 }
+
+
 
 ATank* ATankAIController::GetControlledTank() const
 {
