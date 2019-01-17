@@ -37,7 +37,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 	// The parameter is going to be used as the OUT parameter 
 	if (GetSightRayHitLocation(HitLocation)) // has "side-effect" , is going to line trace 
 	{
-		//UE_LOG(LogTemp, Warning, TEXT("HitLocation : %s"), *HitLocation.ToString());
+		UE_LOG(LogTemp, Warning, TEXT("HitLocation : %s"), *HitLocation.ToString());
 		
 		   //  Tell controlled tank to aim at this point
 	}
@@ -56,10 +56,32 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 	FVector LookDirection;
 	if(GetLookDirection(ScreenLocation , LookDirection))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("LookDirection : %s"), *LookDirection.ToString());
+		//UE_LOG(LogTemp, Warning, TEXT("LookDirection : %s"), *LookDirection.ToString());
+		// Line trace along that look direction , and see what we hit (up to max range)
+		GetLookVectorHitLocation(LookDirection, HitLocation);
 	}
-	// Line trace along that look direction , and see what we hit (up to max range)
+	
 	return true;
+}
+
+bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation ) const
+{
+	FHitResult HitResult; // to store our HitResult
+	auto StartLocation = PlayerCameraManager->GetCameraLocation();
+	auto EndLocation = StartLocation + (LookDirection * LineTraceRange);
+	if (GetWorld()->LineTraceSingleByChannel(
+			HitResult,
+			StartLocation,
+			EndLocation,
+			ECollisionChannel::ECC_Visibility) // that tells us that i want u to go out and hit anything which is visible
+		) // the type that comes out of the line trace is HitResult,so the way we get get the HitLocation is we go the HitResult
+		// which is not in itself the vector we want,and then we go dot and there we got something called Location
+	{
+		HitLocation = HitResult.Location; // if we look at that then that is actually the FVector type we're looking for
+		return true;
+	}
+	HitLocation = FVector(0);
+	return false; // Line Trace didn't succeed
 }
 
 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation ,FVector& LookDirection) const
