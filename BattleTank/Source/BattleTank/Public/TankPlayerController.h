@@ -16,7 +16,7 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 	
 	
-public:
+private:
 	ATank* GetControlledTank() const;
 
 	// If we want to write (void BeginPlay()) we can, but we want to make sure we are overriding and adding to the functionality
@@ -39,4 +39,13 @@ public:
 	// Return an OUT parameter, true if its hit landscape...OUT parameter work by passing reference to and in this case it's
 	// going to be passing a reference to an FVector.
 	bool GetSightRayHitLocation(FVector& HitLocation) const;
+
+	// we set that to 0.5.That is to represent the fact that in our game the Crosshair is halfway across the screen,it's the
+	// same convention as the UI anchors and the like,so it is 50% of the way to the screen.  
+	UPROPERTY(EditAnywhere)
+		float CrosshairXLocation = 0.5;
+
+
+	UPROPERTY(EditAnywhere)
+		float CrosshairYLocation = 0.3333;
 };
