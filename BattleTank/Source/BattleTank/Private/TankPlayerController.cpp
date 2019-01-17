@@ -37,9 +37,10 @@ void ATankPlayerController::AimTowardsCrosshair()
 	// The parameter is going to be used as the OUT parameter 
 	if (GetSightRayHitLocation(HitLocation)) // has "side-effect" , is going to line trace 
 	{
-		UE_LOG(LogTemp, Warning, TEXT("HitLocation : %s"), *HitLocation.ToString());
+		//UE_LOG(LogTemp, Warning, TEXT("HitLocation : %s"), *HitLocation.ToString());
 		
-		   //  Tell controlled tank to aim at this point
+		//  Tell controlled tank to aim at this point
+		GetControlledTank()->AimAt(HitLocation);
 	}
 }
 

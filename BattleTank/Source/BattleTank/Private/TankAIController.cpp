@@ -21,7 +21,19 @@ void ATankAIController::BeginPlay()
 	}
 }
 
+void  ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	if (GetPlayerTank()) // 1st we need to check do we have a player tank
+	{
+		// move towards the player
 
+		// Aims towards the player.... (once we got the controlled tank,then it will have an AimAT() method on it).
+		GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation()); //we tell the CntrolledTank 2 aim at the playr location
+
+		// Fire if ready
+	}
+}
 
 ATank* ATankAIController::GetControlledTank() const
 {
