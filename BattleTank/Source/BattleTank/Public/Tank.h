@@ -17,6 +17,11 @@ public:
 	// the HitLocation formally from the LineTrace that we did in the TankPlayerController,because we are wanting to hit the 
 	// thing that oyr LineTrace hit.
 
+	// setter method . This method get the refrence of barrel from Tank_BP Event Graph.We have given it a category=setup because
+	// it's setting up the tank.We can call this method from blueprint
+	UFUNCTION(BlueprintCallable , Category = Setup)
+	void SetBarrelRefrence(UStaticMeshComponent* BarrelToSet);
+
 protected:
 	// we are putting it in the protected section.Why protected? Well it can't be private,because we're going to need to access 
 	// it using a UPROPPERTY later,and it's not going to be allowed to be private we'll get a compiler error.And it doesn't 

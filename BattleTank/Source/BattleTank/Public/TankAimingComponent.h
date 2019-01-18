@@ -16,14 +16,21 @@ public:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
-protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
+	// setter method for barrel refrence.If this TankAimingComponent is going to have a barrel member down in private section,
+	// then we shouldn't expose that publicly it's generally bad practice.So,we want a setter method
+	void SetBarrelRefrence(UStaticMeshComponent* BarrelToSet);
 
-public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	void AimAt(FVector HitLocation);
+
+protected:
+	// Called when the game starts
+	virtual void BeginPlay() override;
+
+private:
+	UStaticMeshComponent* Barrel = nullptr;  // nullptr as a starting point
+	
 	
 };
