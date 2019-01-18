@@ -18,24 +18,6 @@ void UTankAimingComponent::SetBarrelRefrence(UStaticMeshComponent* BarrelToSet)
 	Barrel = BarrelToSet;
 }
 
-// Called when the game starts
-void UTankAimingComponent::BeginPlay()
-{
-	Super::BeginPlay();
-
-	// ...
-	
-}
-
-
-// Called every frame
-void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
-}
-
 
 void UTankAimingComponent::AimAt(FVector HitLocation , float LaunchSpeed)
 {
@@ -46,23 +28,44 @@ void UTankAimingComponent::AimAt(FVector HitLocation , float LaunchSpeed)
 	if (!Barrel) { return; }
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
-	if (UGameplayStatics::SuggestProjectileVelocity // calculate the outLaunchVelocity
-			(
-				this, // refrence to actual TankAimingComponent
-				OutLaunchVelocity, // that is an OUT parameter
-				StartLocation,
-				HitLocation,
-				LaunchSpeed,
-				false, // we dont't want to go by the HighArc so we say false
-				0, // CollisionRadius.How much variablity do we want on it ? 0 bcz we want to aim precisely
-				0, // OverrideGravityZ. No we're not going to do 
-				ESuggestProjVelocityTraceOption::DoNotTrace // is that you need to decide whether we're going to trace or not
-				// whether we're going to do debug trace
-			)
-		)
+	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity // calculate the outLaunchVelocity
+	(
+		this, // refrence to actual TankAimingComponent
+		OutLaunchVelocity, // that is an OUT parameter
+		StartLocation,
+		HitLocation,
+		LaunchSpeed,
+		false, // we dont't want to go by the HighArc so we say false
+		0, // CollisionRadius.How much variablity do we want on it ? 0 bcz we want to aim precisely
+		0, // OverrideGravityZ. No we're not going to do 
+		ESuggestProjVelocityTraceOption::DoNotTrace // is that you need to decide whether we're going to trace or not
+		// whether we're going to do debug trace
+	);
+
+	if (bHaveAimSolution)
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-		UE_LOG(LogTemp, Warning, TEXT("Aiming at %s"), *AimDirection.ToString());
+		//UE_LOG(LogTemp, Warning, TEXT("Aiming at %s"), *AimDirection.ToString());
+		MoveBarrelTowards(AimDirection);
 	}
-	// if no solution found do nothing
+}
+
+void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) // Movw the barrel towards a particular AimDirection
+{
+	// Where the barrel pointing,compared to where we're asking to point it,and then decide how much we're going to move the 
+	// barrel this frame.
+
+	// GetForwardVector().It is just X Direction vector,it is the direction that the barrel faces in.That's the forward vector
+	// we're getting .And then from that we can turn that into a rotation.Rotation is roll,pitch and yaw
+
+	// Work-out difference between current barrel rotation,and AimDirection
+	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
+	auto AimAsRotator = AimDirection.Rotation(); // AimDirection and need to convert it into rotation.Output: it want me 
+	// to pitch 8 degrees off the horizon,yaw 5 degrees away.We've got a roll, pitch and yaw of the barrel that we're looking
+	// to get.
+	auto DeltaRotator = AimAsRotator - BarrelRotator;
+	UE_LOG(LogTemp, Warning, TEXT("AimAsRotator : %s"), *DeltaRotator.ToString());
+
+	// Move the barrel the right amount this frame
+	// Give a max elevation speed , and the frame time
 }

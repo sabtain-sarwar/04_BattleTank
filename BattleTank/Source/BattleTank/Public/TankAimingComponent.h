@@ -21,17 +21,14 @@ public:
 	// then we shouldn't expose that publicly it's generally bad practice.So,we want a setter method
 	void SetBarrelRefrence(UStaticMeshComponent* BarrelToSet);
 
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	void AimAt(FVector HitLocation , float LaunchSpeed);
 
 protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
+	
 
 private:
 	UStaticMeshComponent* Barrel = nullptr;  // nullptr as a starting point
 	
-	
+	void MoveBarrelTowards(FVector AimDirection);
 };
