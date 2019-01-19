@@ -9,6 +9,7 @@
 
 class UTankBarrel; // Forward Declaration...And that just allows us to refrence the type UTankBarrel in our header file
 
+// Holds Barrel's properties and Elevate Method
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
