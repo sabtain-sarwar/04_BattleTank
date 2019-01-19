@@ -74,7 +74,8 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) // Movw the b
 	// to pitch 8 degrees off the horizon,yaw 5 degrees away.We've got a roll, pitch and yaw of the barrel that we're looking
 	// to get.
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
-	//UE_LOG(LogTemp, Warning, TEXT("AimAsRotator : %s"), *DeltaRotator.ToString());
+	//UE_LOG(LogTemp, Warning, TEXT("AimAsRotator : %s"), *BarrelRotator.ToString());
 
-	Barrel->Elevate(5);
+	//Barrel->Elevate(1); // i.e  100% of its speed
+	Barrel->Elevate(DeltaRotator.Pitch);
 }
