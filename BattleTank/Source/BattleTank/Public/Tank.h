@@ -2,13 +2,15 @@
 
 #pragma once
 
-#include "TankAimingComponent.h" // now the tank has a concept of this TankAimingComponent
+//#include "TankAimingComponent.h" // now the tank has a concept of this TankAimingComponent .moved this include to tank.cpp
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h" // Put New includes above
 
+// Forward Declarations
 class UTankBarrel; // So,the basic point is that in the header file,if you need access to a type,then you just use a class,a
 // forward declaration
+class UTankAimingComponent;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn

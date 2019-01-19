@@ -42,7 +42,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation , float LaunchSpeed)
 		0, // CollisionRadius.How much variablity do we want on it ? 0 bcz we want to aim precisely
 		0, // OverrideGravityZ. No we're not going to do 
 		ESuggestProjVelocityTraceOption::DoNotTrace // is that you need to decide whether we're going to trace or not
-		// whether we're going to do debug trace
+		// whether we're going to do debug trace. This parameter must be present to prevent bug.
 	);
 
 	if (bHaveAimSolution)

@@ -2,10 +2,12 @@
 
 #pragma once
 
-#include "Tank.h"
+//#include "Tank.h" moved this include to TankPlayerController.cpp
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h" // Must be the last include
+
+class ATank;
 
 /**
  * 
