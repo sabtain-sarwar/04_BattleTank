@@ -1,5 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "TankBarrel.h"
 #include "TankAimingComponent.h"
 
 
@@ -13,7 +14,9 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
-void UTankAimingComponent::SetBarrelRefrence(UStaticMeshComponent* BarrelToSet)
+//void UTankAimingComponent::SetBarrelRefrence(UStaticMeshComponent* BarrelToSet)
+
+void UTankAimingComponent::SetBarrelRefrence(UTankBarrel* BarrelToSet)
 {
 	Barrel = BarrelToSet;
 }
@@ -64,8 +67,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) // Movw the b
 	// to pitch 8 degrees off the horizon,yaw 5 degrees away.We've got a roll, pitch and yaw of the barrel that we're looking
 	// to get.
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
-	UE_LOG(LogTemp, Warning, TEXT("AimAsRotator : %s"), *DeltaRotator.ToString());
+	//UE_LOG(LogTemp, Warning, TEXT("AimAsRotator : %s"), *DeltaRotator.ToString());
 
-	// Move the barrel the right amount this frame
-	// Give a max elevation speed , and the frame time
+	Barrel->Elevate(5);
 }

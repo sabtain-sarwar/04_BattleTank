@@ -7,6 +7,9 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h" // Put New includes above
 
+class UTankBarrel; // So,the basic point is that in the header file,if you need access to a type,then you just use a class,a
+// forward declaration
+
 UCLASS()
 class BATTLETANK_API ATank : public APawn
 {
@@ -20,8 +23,9 @@ public:
 	// setter method . This method get the refrence of barrel from Tank_BP Event Graph.We have given it a category=setup because
 	// it's setting up the tank.We can call this method from blueprint
 	UFUNCTION(BlueprintCallable , Category = Setup)
-	void SetBarrelRefrence(UStaticMeshComponent* BarrelToSet);
+	void SetBarrelRefrence(UTankBarrel* BarrelToSet);
 
+	// void SetBarrelRefrence(UStaticMeshComponent* BarrelToSet);
 protected:
 	// we are putting it in the protected section.Why protected? Well it can't be private,because we're going to need to access 
 	// it using a UPROPPERTY later,and it's not going to be allowed to be private we'll get a compiler error.And it doesn't 
