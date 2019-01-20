@@ -11,6 +11,7 @@
 class UTankBarrel; // So,the basic point is that in the header file,if you need access to a type,then you just use a class,a
 // forward declaration
 class UTankAimingComponent;
+class AProjectile;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -55,8 +56,14 @@ private:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(EditAnywhere, Category = Firing)
-		float LaunchSpeed = 4000;
+		float LaunchSpeed = 4000; //float LaunchSpeed = 100000; // starting value of 1000 m/s
+		
+	UPROPERTY(EditAnywhere, Category = Setup)
+		TSubclassOf<AProjectile> ProjectileBlueprint; // <class name> and it does not need a pointer bcz that's built into the
+	// way the TSubclassOf works.
+	//UClass* ProjectileBlueprint; this let's me choose anything,anyclass in blueprint ,because we said in the code here,i want
+	// a UClass* a pointer to any UClass.
 
-		//float LaunchSpeed = 100000; // starting value of 1000 m/s
-	
+	// Local Barrel Reference for spawning projectile 
+	UTankBarrel* Barrel = nullptr;
 };
