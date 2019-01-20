@@ -27,6 +27,10 @@ public:
 	UFUNCTION(BlueprintCallable , Category = Setup)
 	void SetBarrelRefrence(UTankBarrel* BarrelToSet);
 
+	UFUNCTION(BlueprintCallable, Category = Setup)
+		void SetTurretRefrence(UTankTurret* TurretToSet);
+
+
 	// void SetBarrelRefrence(UStaticMeshComponent* BarrelToSet);
 protected:
 	// we are putting it in the protected section.Why protected? Well it can't be private,because we're going to need to access 
