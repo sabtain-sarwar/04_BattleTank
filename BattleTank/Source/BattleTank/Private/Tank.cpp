@@ -50,3 +50,9 @@ void ATank::AimAt(FVector HitLocation)
 	//auto OurTankName = GetName(); // This is the current name of the current tank
 	//UE_LOG(LogTemp, Warning, TEXT("%s aimimg at %s"), *OurTankName , *HitLocation.ToString());
 }
+
+void ATank::Fire()
+{
+	auto Time = GetWorld()->GetTimeSeconds();
+	UE_LOG(LogTemp, Warning, TEXT("%f : Tank Fires"), Time);
+}
