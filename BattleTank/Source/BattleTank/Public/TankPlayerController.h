@@ -44,14 +44,14 @@ private:
 
 	// we set that to 0.5.That is to represent the fact that in our game the Crosshair is halfway across the screen,it's the
 	// same convention as the UI anchors and the like,so it is 50% of the way to the screen.  
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 		float CrosshairXLocation = 0.5;
 
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 		float CrosshairYLocation = 0.3333;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 		float LineTraceRange = 1000000;
 	
 	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;

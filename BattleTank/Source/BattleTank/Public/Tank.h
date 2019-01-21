@@ -54,19 +54,21 @@ private:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	UPROPERTY(EditAnywhere, Category = Firing)
-		float LaunchSpeed = 4000; //float LaunchSpeed = 100000; // starting value of 1000 m/s
 		
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
 		TSubclassOf<AProjectile> ProjectileBlueprint; // <class name> and it does not need a pointer bcz that's built into the
 	// way the TSubclassOf works.
 	//UClass* ProjectileBlueprint; this let's me choose anything,anyclass in blueprint ,because we said in the code here,i want
 	// a UClass* a pointer to any UClass.
 
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+		float LaunchSpeed = 4000; //float LaunchSpeed = 100000; // starting value of 1000 m/s
+
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+		float ReloadTimeInSeconds = 3;
+
 	// Local Barrel Reference for spawning projectile 
 	UTankBarrel* Barrel = nullptr;
 
-	float ReloadTimeInSeconds = 3;
 	double LastFireTime = 0;
 };
