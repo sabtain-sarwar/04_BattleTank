@@ -60,14 +60,20 @@ void ATank::Fire()
 	//auto Time = GetWorld()->GetTimeSeconds();
 	//UE_LOG(LogTemp, Warning, TEXT("%f : Tank Fires"), Time);
 
-	if (!Barrel) { return; }
+	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
 
-	// Spawn the projectile at the socket Location on the barrel....(or projectile in the correct location)(returns projectile)
-	auto Projectile = GetWorld()->SpawnActor<AProjectile>( // from getworld you spawn an actor <what type you want me to act>
-		ProjectileBlueprint, // Class of the thing you are going to spawn...is the thing we want to spawn          
-		Barrel->GetSocketLocation(FName("Projectile")), // where are we going to spawn it? at barrel
-		Barrel->GetSocketRotation(FName("Projectile"))
-		);
-	//projectile and call a method on this 
-	Projectile->LaunchProjectile(LaunchSpeed);
+	//if (!Barrel) { return; } now this condition is applied below
+
+	if (Barrel && isReloaded)
+	{
+		// Spawn the projectile at the socket Location on the barrel....(or projectile in the correct location)(returns projectile)
+		auto Projectile = GetWorld()->SpawnActor<AProjectile>( // from getworld you spawn an actor <what type you want me to act>
+			ProjectileBlueprint, // Class of the thing you are going to spawn...is the thing we want to spawn          
+			Barrel->GetSocketLocation(FName("Projectile")), // where are we going to spawn it? at barrel
+			Barrel->GetSocketRotation(FName("Projectile"))
+			);
+		//projectile and call a method on this 
+		Projectile->LaunchProjectile(LaunchSpeed);
+		LastFireTime = FPlatformTime::Seconds();
+	}
 }
