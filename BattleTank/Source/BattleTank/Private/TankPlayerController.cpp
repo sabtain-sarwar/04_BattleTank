@@ -9,15 +9,15 @@ void ATankPlayerController::BeginPlay()
 	// Super:: classes is being called.(Called the default behavior before we do anything)
 	Super::BeginPlay();
 
-	auto ControlledTank = GetControlledTank();
-	if (!ControlledTank) 
-	{
-		UE_LOG(LogTemp, Warning, TEXT("PlayerController not possessing the tank"));
-	} 
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("PlayerController  possessing : %s") , *(ControlledTank->GetName()));
-	}
+	//auto ControlledTank = GetControlledTank();
+	//if (!ControlledTank) 
+	//{
+	//	UE_LOG(LogTemp, Warning, TEXT("PlayerController not possessing the tank"));
+	//} 
+	//else
+	//{
+	//	UE_LOG(LogTemp, Warning, TEXT("PlayerController  possessing : %s") , *(ControlledTank->GetName()));
+	//}
 }
 
 void  ATankPlayerController::Tick(float DeltaTime)

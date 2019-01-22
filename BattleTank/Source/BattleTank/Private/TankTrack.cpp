@@ -7,8 +7,10 @@
 
 void UTankTrack::SetThrottle(float Throttle)
 {
-	auto Name = GetName(); 
-    UE_LOG(LogTemp, Warning, TEXT("%s Throttle : %f"), *Name , Throttle);
+	// moved this to TankMovementComponent.cpp
+	//auto Name = GetName(); 
+    //UE_LOG(LogTemp, Warning, TEXT("%s Throttle : %f"), *Name , Throttle);
+
 	// video 148
 	// forwardVector of the track along X-axes.If Throttle is 0 you get no force,if the force is 1 ,you get the MaxDrivingForce.
 	// If the throttle is -1,you get backwards force
