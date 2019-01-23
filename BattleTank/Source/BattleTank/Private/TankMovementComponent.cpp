@@ -13,9 +13,17 @@ void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* 
 void  UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
 {
 	// No need to call super as we are replacing the functionality
-	auto TankName = GetOwner()->GetName();
-	auto MoveVelocityString = MoveVelocity.ToString();
-	UE_LOG(LogTemp, Warning, TEXT("%s Velocity to : %s"), *TankName , *MoveVelocityString);
+	//auto TankName = GetOwner()->GetName();
+	//auto MoveVelocityString = MoveVelocity.ToString(); // Not a unit vector.This vector is long
+	//UE_LOG(LogTemp, Warning, TEXT("%s Velocity to : %s"), *TankName , *MoveVelocityString);
+	auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal(); // tank forward direction. How do you get the tank
+	// forward  ? We're on TankMovementComponet,what do we do to go from the MovementComponent to the tank itself ?--------
+	// is  a unit vector,in the direction the tank is facing forward.Vector in the direction of X-Axes where the tank is looking
+	auto AiForwardIntention = MoveVelocity.GetSafeNormal(); // normalize the vector.That is the unit vector in which AI intends
+	// for the tank to move forward.It is a unit vector in a direction the AI would like the tank to move.
+	auto ForwardThrow = FVector::DotProduct(TankForward, AiForwardIntention);
+
+	IntendMoveForward(ForwardThrow);
 }
 
 void UTankMovementComponent::IntendMoveForward(float Throw)

@@ -27,5 +27,5 @@ private:
 	//ATank* GetPlayerTank() const; // returns a pointer to a playertank
 	
 	// How close the AI tank get to the player
-	float AcceptanceRadius = 3000;
+	float AcceptanceRadius = 1000;
 };
