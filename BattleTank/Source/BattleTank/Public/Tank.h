@@ -42,8 +42,9 @@ protected:
 	// it using a UPROPPERTY later,and it's not going to be allowed to be private we'll get a compiler error.And it doesn't 
 	// need to be public because who needs access to this component from the outside.
 
-	// we're going to make ourself a TankMovementComponent pointer.The TankMovementComponent exist as a class  
-	UTankAimingComponent* TankAimingComponent = nullptr; // nullptr just to initialize it to something sensible and predictable.
+	// we're going to make ourself a TankMovementComponent pointer.The TankMovementComponent exist as a class 
+	UPROPERTY(BlueprintReadOnly)
+		UTankAimingComponent* TankAimingComponent = nullptr; //nullptr just to initialize it to something sensible and predictable.
 	// The tank now has the ability to have a refrence to a TankAimingComponent
 
 	UPROPERTY(BlueprintReadOnly)

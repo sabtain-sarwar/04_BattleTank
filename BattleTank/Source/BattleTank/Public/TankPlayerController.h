@@ -16,10 +16,14 @@ UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-	
+
+protected:
+	// If this is a blueprintCallable then blueprint is a subclass of this c++class, so it can't be in private section,it need
+	// need this to be in protected section so that the subclasses can access this
+	UFUNCTION(BlueprintCallable, Category = Setup)
+		ATank* GetControlledTank() const;
 	
 private:
-	ATank* GetControlledTank() const;
 
 	// If we want to write (void BeginPlay()) we can, but we want to make sure we are overriding and adding to the functionality
 	// that's further up the inheritance tree, because we want to make sure that all that other stuff that Unreal has written 
