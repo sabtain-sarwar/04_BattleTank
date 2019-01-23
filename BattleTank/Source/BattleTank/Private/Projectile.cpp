@@ -33,7 +33,7 @@ void AProjectile::Tick(float DeltaTime)
 void AProjectile::LaunchProjectile(float speed) // Launch projectile at some speed
 {
 	auto Time = GetWorld()->GetTimeSeconds();
-	UE_LOG(LogTemp, Warning, TEXT("%f : Projectile Fires at %f"), Time,speed);
+	//UE_LOG(LogTemp, Warning, TEXT("%f : Projectile Fires at %f"), Time,speed);
 	// The projectile should be facing forward in thje same direction as the barrel.So this ForwardVector will be hopefully
 	// the barrel ForwardVector.Once we got the vector it's just the unit vector then we multiply it with speed and that would
 	// give us the initial launch velocity.And then we need to activate the projectile movement component
