@@ -33,7 +33,8 @@ void  ATankAIController::Tick(float DeltaTime)
 	if (PlayerTank)
 	{
 		// move towards the player
-		
+		MoveToActor(PlayerTank, AcceptanceRadius);// check radius in cm
+
 		// Aims towards the player.... (once we got the controlled tank,then it will have an AimAT() method on it).
 		//GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation()); //we tell the CntrolledTank 2 aim at the playr location
 		ControlledTank->AimAt(PlayerTank->GetActorLocation());

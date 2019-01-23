@@ -30,6 +30,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = Input)
 		void IntendTurnRight(float Throw);
+
+	// put override on the end, which makes the compiler checks this is exactly the right signature
+	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
 	
 private:
 	UTankTrack* LeftTrack = nullptr;
