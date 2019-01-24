@@ -7,6 +7,17 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
+// Enum for aiming state...uint8 (data type you want that enum to use.That's an 8 bit integer,which means 0 and 255.In other
+// words you have 256 different possible members you could put in your enum) EFiringState as a type
+UENUM()
+enum class EFiringState : uint8
+{
+	Reloading,
+	Aiming,
+	Locked
+};
+
+
 class UTankBarrel; // Forward Declaration...And that just allows us to refrence the type UTankBarrel in our header file
 class UTankTurret;
 
@@ -29,6 +40,11 @@ public:
 
 	void AimAt(FVector HitLocation , float LaunchSpeed);
 
+protected:
+	// Declared a variable which is a variable of type EFiringState, which can only takes the values of EFiringState.And we're
+	// initializing it to Reloading
+	UPROPERTY(BlueprintReadOnly, Category = "State")
+		EFiringState FiringState = EFiringState::Reloading;
 
 private:
 	UTankBarrel* Barrel = nullptr;

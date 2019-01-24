@@ -20,7 +20,7 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 protected:
 	// If this is a blueprintCallable then blueprint is a subclass of this c++class, so it can't be in private section,it need
 	// need this to be in protected section so that the subclasses can access this
-	UFUNCTION(BlueprintCallable, Category = Setup)
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 		ATank* GetControlledTank() const;
 	
 private:
