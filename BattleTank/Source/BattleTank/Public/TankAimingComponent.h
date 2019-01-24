@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Sabtain Sarwar
 
 #pragma once
 
@@ -28,15 +28,16 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	// Sets default values for this component's properties
-	UTankAimingComponent();
+	
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+		void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
 	// setter method for barrel refrence.If this TankAimingComponent is going to have a barrel member down in private section,
 	// then we shouldn't expose that publicly it's generally bad practice.So,we want a setter method
-	void SetBarrelRefrence(UTankBarrel* BarrelToSet);
+	//void SetBarrelRefrence(UTankBarrel* BarrelToSet);
 	//void SetBarrelRefrence(UStaticMeshComponent* BarrelToSet);
 
-	void SetTurretRefrence(UTankTurret* TurretToSet);
+	//void SetTurretRefrence(UTankTurret* TurretToSet);
 
 	void AimAt(FVector HitLocation , float LaunchSpeed);
 
@@ -47,6 +48,10 @@ protected:
 		EFiringState FiringState = EFiringState::Reloading;
 
 private:
+	// Sets default values for this component's properties
+	UTankAimingComponent();
+
+
 	UTankBarrel* Barrel = nullptr;
 	//UStaticMeshComponent* Barrel = nullptr;  // nullptr as a starting point
 

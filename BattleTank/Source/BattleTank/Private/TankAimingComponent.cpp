@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Sabtain Sarwar
 
 
 #include "TankAimingComponent.h"
@@ -15,19 +15,25 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
-//void UTankAimingComponent::SetBarrelRefrence(UStaticMeshComponent* BarrelToSet)
-
-void UTankAimingComponent::SetBarrelRefrence(UTankBarrel* BarrelToSet)
+void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
 {
-	if(!BarrelToSet) { return; }
 	Barrel = BarrelToSet;
-}
-
-void UTankAimingComponent::SetTurretRefrence(UTankTurret* TurretToSet)
-{
-	if (!TurretToSet) { return; }
 	Turret = TurretToSet;
 }
+
+//void UTankAimingComponent::SetBarrelRefrence(UStaticMeshComponent* BarrelToSet)
+
+//void UTankAimingComponent::SetBarrelRefrence(UTankBarrel* BarrelToSet)
+//{
+//	if(!BarrelToSet) { return; }
+//	Barrel = BarrelToSet;
+//}
+
+//void UTankAimingComponent::SetTurretRefrence(UTankTurret* TurretToSet)
+//{
+//	if (!TurretToSet) { return; }
+//	Turret = TurretToSet;
+//}
 
 
 
@@ -71,6 +77,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation , float LaunchSpeed)
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) // Movw the barrel towards a particular AimDirection
 {
+	if (!Barrel || !Turret) { return; } 
 	// Where the barrel pointing,compared to where we're asking to point it,and then decide how much we're going to move the 
 	// barrel this frame.
 

@@ -24,17 +24,17 @@ public:
 
 	// setter method . This method get the refrence of barrel from Tank_BP Event Graph.We have given it a category=setup because
 	// it's setting up the tank.We can call this method from blueprint
-	UFUNCTION(BlueprintCallable , Category = Setup)
-	void SetBarrelRefrence(UTankBarrel* BarrelToSet); 	// void SetBarrelRefrence(UStaticMeshComponent* BarrelToSet);
+	//UFUNCTION(BlueprintCallable , Category = Setup)
+	//void SetBarrelRefrence(UTankBarrel* BarrelToSet); 	// void SetBarrelRefrence(UStaticMeshComponent* BarrelToSet);
 
-	UFUNCTION(BlueprintCallable, Category = Setup)
-		void SetTurretRefrence(UTankTurret* TurretToSet);
+	//UFUNCTION(BlueprintCallable, Category = Setup)
+		//void SetTurretRefrence(UTankTurret* TurretToSet);
 
 	void AimAt(FVector HitLocation); // In this case , we kind of mean the Location of the thing we want to hit,but it is also
 	// the HitLocation formally from the LineTrace that we did in the TankPlayerController,because we are wanting to hit the 
 	// thing that oyr LineTrace hit.
 
-	UFUNCTION(BlueprintCallable, Category = Firing)
+	UFUNCTION(BlueprintCallable, Category = "Firing")
 		void Fire();
 
 protected:
@@ -53,22 +53,20 @@ private:
 	// Sets default values for this pawn's properties
 	ATank();
 
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 		
-	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		TSubclassOf<AProjectile> ProjectileBlueprint; // <class name> and it does not need a pointer bcz that's built into the
 	// way the TSubclassOf works.
 	//UClass* ProjectileBlueprint; this let's me choose anything,anyclass in blueprint ,because we said in the code here,i want
 	// a UClass* a pointer to any UClass.
 
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		float LaunchSpeed = 4000; //float LaunchSpeed = 100000; // starting value of 1000 m/s
 
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		float ReloadTimeInSeconds = 3;
 
 	// Local Barrel Reference for spawning projectile 

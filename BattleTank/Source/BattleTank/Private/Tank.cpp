@@ -18,36 +18,29 @@ ATank::ATank()
 	// if it's going to delegate aiming to it.
 
 	// No need to protect pointers as added at constructor
-	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
+	//TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
 	// TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Movement Component")); 
 }
 
 //void ATank::SetBarrelRefrence(UStaticMeshComponent* BarrelToSet)
-void ATank::SetBarrelRefrence(UTankBarrel* BarrelToSet)
-{
-	TankAimingComponent->SetBarrelRefrence(BarrelToSet);
-	Barrel = BarrelToSet;
-}
+//void ATank::SetBarrelRefrence(UTankBarrel* BarrelToSet)
+//{
+//	TankAimingComponent->SetBarrelRefrence(BarrelToSet);
+//	Barrel = BarrelToSet;
+//}
 
-void ATank::SetTurretRefrence(UTankTurret* TurretToSet)
-{
-	TankAimingComponent->SetTurretRefrence(TurretToSet);
-}
+//void ATank::SetTurretRefrence(UTankTurret* TurretToSet)
+//{
+//	TankAimingComponent->SetTurretRefrence(TurretToSet);
+//}
 
-// Called when the game starts or when spawned
-void ATank::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
 
 
 // Called to bind functionality to input
-void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
+//void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+//{
+//	Super::SetupPlayerInputComponent(PlayerInputComponent);
+//}
 
 void ATank::AimAt(FVector HitLocation)
 {

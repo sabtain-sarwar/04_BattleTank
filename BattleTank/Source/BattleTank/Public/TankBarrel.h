@@ -21,13 +21,13 @@ public:
 	
 	
 private:
-	UPROPERTY(EditDefaultsOnly, category = setup)
+	UPROPERTY(EditDefaultsOnly, category = "setup")
 		float MaxDegreesPerSecond = 10; // Sensible Default
 
-	UPROPERTY(EditDefaultsOnly, category = setup)
+	UPROPERTY(EditDefaultsOnly, category = "setup")
 		float MaxElevationDegrees = 40; 
 
-	UPROPERTY(EditDefaultsOnly, category = setup)
+	UPROPERTY(EditDefaultsOnly, category = "setup")
 		float MinElevationDegrees = 0; 
 	
 };
