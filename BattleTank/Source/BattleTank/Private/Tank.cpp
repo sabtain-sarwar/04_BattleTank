@@ -3,7 +3,7 @@
 #include "Tank.h"
 #include "TankBarrel.h"
 #include "Projectile.h" 
-#include "TankAimingComponent.h" 
+//#include "TankAimingComponent.h" 
 //#include "TankMovementComponent.h"
 
 
@@ -45,16 +45,16 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay(); // Needed for BP Begin Play to run!
-	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
+	//TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 }
 
-void ATank::AimAt(FVector HitLocation)
-{
-	if (!ensure(TankAimingComponent)) { return; }
-	TankAimingComponent->AimAt(HitLocation , LaunchSpeed);
+//void ATank::AimAt(FVector HitLocation)
+//{
+	//if (!ensure(TankAimingComponent)) { return; }
+//	TankAimingComponent->AimAt(HitLocation , LaunchSpeed);
 	//auto OurTankName = GetName(); // This is the current name of the current tank
 	//UE_LOG(LogTemp, Warning, TEXT("%s aimimg at %s"), *OurTankName , *HitLocation.ToString());
-}
+//}
 
 void ATank::Fire()
 {

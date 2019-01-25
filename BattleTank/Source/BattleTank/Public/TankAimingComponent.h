@@ -39,7 +39,10 @@ public:
 
 	//void SetTurretRefrence(UTankTurret* TurretToSet);
 
-	void AimAt(FVector HitLocation , float LaunchSpeed);
+	// The signature is different bcz the AimingComponent need to know the the LaunchSpeed that was dtored on the tank,but now
+	// we're going to have a copy of the launchSpeed right here
+	// void AimAt(FVector HitLocation , float LaunchSpeed);
+	void AimAt(FVector HitLocation);
 
 protected:
 	// Declared a variable which is a variable of type EFiringState, which can only takes the values of EFiringState.And we're
@@ -56,6 +59,9 @@ private:
 	//UStaticMeshComponent* Barrel = nullptr;  // nullptr as a starting point
 
 	UTankTurret* Turret = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		float LaunchSpeed = 4000; //float LaunchSpeed = 100000; // starting value of 1000 m/s
 	
 	void MoveBarrelTowards(FVector AimDirection);
 };

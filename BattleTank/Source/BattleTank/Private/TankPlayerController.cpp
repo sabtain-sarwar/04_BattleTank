@@ -3,7 +3,7 @@
 
 #include "TankPlayerController.h"
 #include "TankAimingComponent.h"
-#include "Tank.h" 
+// #include "Tank.h" 
 
 
 void ATankPlayerController::BeginPlay()
@@ -22,7 +22,8 @@ void ATankPlayerController::BeginPlay()
 	//	UE_LOG(LogTemp, Warning, TEXT("PlayerController  possessing : %s") , *(ControlledTank->GetName()));
 	//}
 
-	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	//auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (ensure(AimingComponent))
 	{
 		FoundAimingComponent(AimingComponent);
@@ -39,14 +40,17 @@ void  ATankPlayerController::Tick(float DeltaTime)
 	AimTowardsCrosshair();
 }
 
-ATank* ATankPlayerController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}
+//ATank* ATankPlayerController::GetControlledTank() const
+//{
+	// return Cast<ATank>(GetPawn()); it just returns the Pawn ,and it actually doesn't need to cast this Pawn to a Tank,bcz
+	// tank is a Pawn.
+	//return GetPawn();
+//}
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
-	if (!ensure(GetControlledTank())) { return; }
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(AimingComponent)) { return; }
 	FVector HitLocation; // OUT Parameter
 	// The parameter is going to be used as the OUT parameter 
 	if (GetSightRayHitLocation(HitLocation)) // has "side-effect" , is going to line trace 
@@ -54,7 +58,8 @@ void ATankPlayerController::AimTowardsCrosshair()
 		//UE_LOG(LogTemp, Warning, TEXT("HitLocation : %s"), *HitLocation.ToString());
 		
 		//  Tell controlled tank to aim at this point
-		GetControlledTank()->AimAt(HitLocation);
+		// GetControlledTank()->AimAt(HitLocation);
+		AimingComponent->AimAt(HitLocation);
 	}
 }
 

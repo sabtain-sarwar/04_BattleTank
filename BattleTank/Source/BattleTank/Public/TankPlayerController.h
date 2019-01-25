@@ -7,7 +7,7 @@
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h" // Must be the last include
 
-class ATank;
+//class ATank;
 
 /**
  * Responsible for helping the player aim.
@@ -20,8 +20,8 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 protected:
 	// If this is a blueprintCallable then blueprint is a subclass of this c++class, so it can't be in private section,it need
 	// need this to be in protected section so that the subclasses can access this
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-		ATank* GetControlledTank() const;
+	//UFUNCTION(BlueprintCallable, Category = "Setup")
+		//ATank* GetControlledTank() const;
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 		void FoundAimingComponent(UTankAimingComponent* AimComRef);

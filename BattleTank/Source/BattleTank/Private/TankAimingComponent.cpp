@@ -36,8 +36,8 @@ void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* Tur
 //}
 
 
-
-void UTankAimingComponent::AimAt(FVector HitLocation , float LaunchSpeed)
+// void UTankAimingComponent::AimAt(FVector HitLocation , float LaunchSpeed)
+void UTankAimingComponent::AimAt(FVector HitLocation)
 {
 	//auto OurTankName = GetOwner()->GetName(); 
 	//auto BarrelLocation = Barrel->GetComponentLocation().ToString(); // a refrence to barrel and getting its location

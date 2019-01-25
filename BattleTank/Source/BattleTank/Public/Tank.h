@@ -10,7 +10,7 @@
 // Forward Declarations
 class UTankBarrel; // So,the basic point is that in the header file,if you need access to a type,then you just use a class,a
 // forward declaration
-class UTankAimingComponent;
+//class UTankAimingComponent;
 //class UTankMovementComponent;
 class AProjectile;
 
@@ -30,7 +30,8 @@ public:
 	//UFUNCTION(BlueprintCallable, Category = Setup)
 		//void SetTurretRefrence(UTankTurret* TurretToSet);
 
-	void AimAt(FVector HitLocation); // In this case , we kind of mean the Location of the thing we want to hit,but it is also
+	// moved the below method to TankAimingComponent.h
+	//void AimAt(FVector HitLocation); // In this case , we kind of mean the Location of the thing we want to hit,but it is also
 	// the HitLocation formally from the LineTrace that we did in the TankPlayerController,because we are wanting to hit the 
 	// thing that oyr LineTrace hit.
 
@@ -43,8 +44,8 @@ protected:
 	// need to be public because who needs access to this component from the outside.
 
 	// we're going to make ourself a TankMovementComponent pointer.The TankMovementComponent exist as a class 
-	UPROPERTY(BlueprintReadOnly)
-		UTankAimingComponent* TankAimingComponent = nullptr; //nullptr just to initialize it to something sensible and predictable.
+	//UPROPERTY(BlueprintReadOnly)
+		//UTankAimingComponent* TankAimingComponent = nullptr; //nullptr just to initialize it to something sensible and predictable.
 	// The tank now has the ability to have a refrence to a TankAimingComponent
 
 	//UPROPERTY(BlueprintReadOnly)

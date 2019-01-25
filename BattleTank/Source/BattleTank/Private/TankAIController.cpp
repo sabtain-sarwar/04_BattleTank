@@ -1,8 +1,9 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Sabtain Sarwar
+
+
 #include "TankAIController.h"
-#include "Tank.h"
-
-
+#include "TankAimingComponent.h"
+//#include "Tank.h"
 
 
 void ATankAIController::BeginPlay()
@@ -26,21 +27,24 @@ void  ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	auto PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
-	auto ControlledTank = Cast<ATank>(GetPawn());
+	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
+	auto ControlledTank = GetPawn();
 
 	//if (GetPlayerTank()) // 1st we need to check do we have a player tank
-	if (ensure(PlayerTank))
-	{
+	if (!ensure(PlayerTank && ControlledTank)) { return; }
+	//if (ensure(PlayerTank))
+	//{
 		// move towards the player
 		MoveToActor(PlayerTank, AcceptanceRadius);// check radius in cm
 
 		// Aims towards the player.... (once we got the controlled tank,then it will have an AimAT() method on it).
 		//GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation()); //we tell the CntrolledTank 2 aim at the playr location
-		ControlledTank->AimAt(PlayerTank->GetActorLocation());
+		auto AimingComponent = ControlledTank->FindComponentByClass<UTankAimingComponent>();
+		AimingComponent->AimAt(PlayerTank->GetActorLocation());
+		
 		// Fire if ready
-		ControlledTank->Fire();
-	}
+		//ControlledTank->Fire();
+	//}
 }
 
 //Tank* ATankAIController::GetControlledTank() const
