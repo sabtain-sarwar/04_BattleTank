@@ -45,7 +45,7 @@ protected:
 	// Declared a variable which is a variable of type EFiringState, which can only takes the values of EFiringState.And we're
 	// initializing it to Reloading
 	UPROPERTY(BlueprintReadOnly, Category = "State")
-		EFiringState FiringState = EFiringState::Aiming;
+		EFiringState FiringState = EFiringState::Locked;
 
 private:
 	// Sets default values for this component's properties
