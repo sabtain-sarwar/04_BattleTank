@@ -44,7 +44,7 @@ ATank::ATank()
 
 void ATank::AimAt(FVector HitLocation)
 {
-	if (!TankAimingComponent) { return; }
+	if (!ensure(TankAimingComponent)) { return; }
 	TankAimingComponent->AimAt(HitLocation , LaunchSpeed);
 	//auto OurTankName = GetName(); // This is the current name of the current tank
 	//UE_LOG(LogTemp, Warning, TEXT("%s aimimg at %s"), *OurTankName , *HitLocation.ToString());
@@ -55,12 +55,12 @@ void ATank::Fire()
 	// Moved to projectile.cpp
 	//auto Time = GetWorld()->GetTimeSeconds();
 	//UE_LOG(LogTemp, Warning, TEXT("%f : Tank Fires"), Time);
-
+	if (!ensure(Barrel)) { return; }
 	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
 
 	//if (!Barrel) { return; } now this condition is applied below
 
-	if (Barrel && isReloaded)
+	if (isReloaded)
 	{
 		// Spawn the projectile at the socket Location on the barrel....(or projectile in the correct location)(returns projectile)
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>( // from getworld you spawn an actor <what type you want me to act>
