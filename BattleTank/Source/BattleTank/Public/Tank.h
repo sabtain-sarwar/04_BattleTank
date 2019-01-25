@@ -11,7 +11,7 @@
 class UTankBarrel; // So,the basic point is that in the header file,if you need access to a type,then you just use a class,a
 // forward declaration
 class UTankAimingComponent;
-class UTankMovementComponent;
+//class UTankMovementComponent;
 class AProjectile;
 
 UCLASS()
@@ -47,8 +47,8 @@ protected:
 		UTankAimingComponent* TankAimingComponent = nullptr; //nullptr just to initialize it to something sensible and predictable.
 	// The tank now has the ability to have a refrence to a TankAimingComponent
 
-	UPROPERTY(BlueprintReadOnly)
-		UTankMovementComponent* TankMovementComponent = nullptr; // to store the pointer
+	//UPROPERTY(BlueprintReadOnly)
+	//	UTankMovementComponent* TankMovementComponent = nullptr; // to store the pointer
 private:	
 	// Sets default values for this pawn's properties
 	ATank();
