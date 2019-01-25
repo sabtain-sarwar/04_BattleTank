@@ -1,8 +1,8 @@
 // Copyright Sabtain Sarwar
 
 #include "Tank.h"
-#include "TankBarrel.h"
-#include "Projectile.h" 
+//#include "TankBarrel.h"
+//#include "Projectile.h" 
 //#include "TankAimingComponent.h" 
 //#include "TankMovementComponent.h"
 
@@ -42,11 +42,11 @@ ATank::ATank()
 //	Super::SetupPlayerInputComponent(PlayerInputComponent);
 //}
 
-void ATank::BeginPlay()
-{
-	Super::BeginPlay(); // Needed for BP Begin Play to run!
+//void ATank::BeginPlay()
+//{
+	//Super::BeginPlay(); // Needed for BP Begin Play to run!
 	//TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
-}
+//}
 
 //void ATank::AimAt(FVector HitLocation)
 //{
@@ -56,26 +56,26 @@ void ATank::BeginPlay()
 	//UE_LOG(LogTemp, Warning, TEXT("%s aimimg at %s"), *OurTankName , *HitLocation.ToString());
 //}
 
-void ATank::Fire()
-{
+//void ATank::Fire() Moved to TankAimingComponent.cpp
+//{
 	// Moved to projectile.cpp
 	//auto Time = GetWorld()->GetTimeSeconds();
 	//UE_LOG(LogTemp, Warning, TEXT("%f : Tank Fires"), Time);
-	if (!ensure(Barrel)) { return; }
-	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
+	//if (!ensure(Barrel)) { return; }
+	//bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
 
 	//if (!Barrel) { return; } now this condition is applied below
 
-	if (isReloaded)
-	{
+	//if (isReloaded)
+	//{
 		// Spawn the projectile at the socket Location on the barrel....(or projectile in the correct location)(returns projectile)
-		auto Projectile = GetWorld()->SpawnActor<AProjectile>( // from getworld you spawn an actor <what type you want me to act>
-			ProjectileBlueprint, // Class of the thing you are going to spawn...is the thing we want to spawn          
-			Barrel->GetSocketLocation(FName("Projectile")), // where are we going to spawn it? at barrel
-			Barrel->GetSocketRotation(FName("Projectile"))
-			);
+		//auto Projectile = GetWorld()->SpawnActor<AProjectile>( // from getworld you spawn an actor <what type you want me to act>
+		//	ProjectileBlueprint, // Class of the thing you are going to spawn...is the thing we want to spawn          
+		//	Barrel->GetSocketLocation(FName("Projectile")), // where are we going to spawn it? at barrel
+		//	Barrel->GetSocketRotation(FName("Projectile"))
+		//	);
 		//projectile and call a method on this 
-		Projectile->LaunchProjectile(LaunchSpeed);
-		LastFireTime = FPlatformTime::Seconds();
-	}
-}
+		//Projectile->LaunchProjectile(LaunchSpeed);
+	//LastFireTime = FPlatformTime::Seconds();
+	//}
+//}

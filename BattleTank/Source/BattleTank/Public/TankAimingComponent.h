@@ -20,6 +20,7 @@ enum class EFiringState : uint8
 
 class UTankBarrel; // Forward Declaration...And that just allows us to refrence the type UTankBarrel in our header file
 class UTankTurret;
+class AProjectile;
 
 // Holds Barrel's properties and Elevate Method
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -44,6 +45,10 @@ public:
 	// void AimAt(FVector HitLocation , float LaunchSpeed);
 	void AimAt(FVector HitLocation);
 
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+		void Fire();
+
+
 protected:
 	// Declared a variable which is a variable of type EFiringState, which can only takes the values of EFiringState.And we're
 	// initializing it to Reloading
@@ -54,6 +59,7 @@ private:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
+	void MoveBarrelTowards(FVector AimDirection);
 
 	UTankBarrel* Barrel = nullptr;
 	//UStaticMeshComponent* Barrel = nullptr;  // nullptr as a starting point
@@ -62,6 +68,12 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		float LaunchSpeed = 4000; //float LaunchSpeed = 100000; // starting value of 1000 m/s
-	
-	void MoveBarrelTowards(FVector AimDirection);
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		TSubclassOf<AProjectile> ProjectileBlueprint; // <class name> and it does not need a pointer bcz that's built into the
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		float ReloadTimeInSeconds = 3;
+
+	double LastFireTime = 0;
 };

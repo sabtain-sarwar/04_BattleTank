@@ -4,6 +4,7 @@
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
+#include "Projectile.h"
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
@@ -96,4 +97,29 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) // Movw the b
 	//Barrel->Elevate(1); // i.e  100% of its speed
 	Barrel->Elevate(DeltaRotator.Pitch);
 	Turret->Rotate(DeltaRotator.Yaw);
+}
+
+
+void UTankAimingComponent::Fire()
+{
+	// Moved to projectile.cpp
+	//auto Time = GetWorld()->GetTimeSeconds();
+	//UE_LOG(LogTemp, Warning, TEXT("%f : Tank Fires"), Time);
+	if (!ensure(Barrel && ProjectileBlueprint)) { return; }
+	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
+
+	//if (!Barrel) { return; } now this condition is applied below
+
+	if (isReloaded)
+	{
+		// Spawn the projectile at the socket Location on the barrel....(or projectile in the correct location)(returns projectile)
+		auto Projectile = GetWorld()->SpawnActor<AProjectile>( // from getworld you spawn an actor <what type you want me to act>
+			ProjectileBlueprint, // Class of the thing you are going to spawn...is the thing we want to spawn          
+			Barrel->GetSocketLocation(FName("Projectile")), // where are we going to spawn it? at barrel
+			Barrel->GetSocketRotation(FName("Projectile"))
+			);
+		//projectile and call a method on this 
+		Projectile->LaunchProjectile(LaunchSpeed);
+		LastFireTime = FPlatformTime::Seconds();
+	}
 }

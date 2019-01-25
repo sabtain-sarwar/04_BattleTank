@@ -8,11 +8,11 @@
 #include "Tank.generated.h" // Put New includes above
 
 // Forward Declarations
-class UTankBarrel; // So,the basic point is that in the header file,if you need access to a type,then you just use a class,a
+// class UTankBarrel; // So,the basic point is that in the header file,if you need access to a type,then you just use a class,a
 // forward declaration
-//class UTankAimingComponent;
-//class UTankMovementComponent;
-class AProjectile;
+// class UTankAimingComponent;
+// class UTankMovementComponent;
+// class AProjectile; moved to tankAimingComponent.h
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -20,7 +20,7 @@ class BATTLETANK_API ATank : public APawn
 	GENERATED_BODY()
 
 public:
-	virtual void BeginPlay() override;
+	//virtual void BeginPlay() override;
 
 	// setter method . This method get the refrence of barrel from Tank_BP Event Graph.We have given it a category=setup because
 	// it's setting up the tank.We can call this method from blueprint
@@ -35,8 +35,8 @@ public:
 	// the HitLocation formally from the LineTrace that we did in the TankPlayerController,because we are wanting to hit the 
 	// thing that oyr LineTrace hit.
 
-	UFUNCTION(BlueprintCallable, Category = "Firing")
-		void Fire();
+	// UFUNCTION(BlueprintCallable, Category = "Firing") moved to TankAimingComponent
+		//void Fire();
 
 protected:
 	// we are putting it in the protected section.Why protected? Well it can't be private,because we're going to need to access 
@@ -54,24 +54,24 @@ private:
 	// Sets default values for this pawn's properties
 	ATank();
 
-
+	// below code moved to TankAimingComponent.h
 	// Called to bind functionality to input
 	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 		
-	UPROPERTY(EditDefaultsOnly, Category = "Setup")
-		TSubclassOf<AProjectile> ProjectileBlueprint; // <class name> and it does not need a pointer bcz that's built into the
+	//UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		//TSubclassOf<AProjectile> ProjectileBlueprint; // <class name> and it does not need a pointer bcz that's built into the
 	// way the TSubclassOf works.
 	//UClass* ProjectileBlueprint; this let's me choose anything,anyclass in blueprint ,because we said in the code here,i want
 	// a UClass* a pointer to any UClass.
 
-	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-		float LaunchSpeed = 4000; //float LaunchSpeed = 100000; // starting value of 1000 m/s
+	//UPROPERTY(EditDefaultsOnly, Category = "Firing") 
+		//float LaunchSpeed = 4000; //float LaunchSpeed = 100000; // starting value of 1000 m/s
 
-	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-		float ReloadTimeInSeconds = 3;
+	//UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		//float ReloadTimeInSeconds = 3;
 
 	// Local Barrel Reference for spawning projectile 
-	UTankBarrel* Barrel = nullptr;
+	//UTankBarrel* Barrel = nullptr;
 
-	double LastFireTime = 0;
+	//double LastFireTime = 0;
 };
