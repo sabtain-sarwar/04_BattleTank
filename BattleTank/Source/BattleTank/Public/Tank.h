@@ -20,7 +20,7 @@ class BATTLETANK_API ATank : public APawn
 	GENERATED_BODY()
 
 public:
-	
+	virtual void BeginPlay() override;
 
 	// setter method . This method get the refrence of barrel from Tank_BP Event Graph.We have given it a category=setup because
 	// it's setting up the tank.We can call this method from blueprint

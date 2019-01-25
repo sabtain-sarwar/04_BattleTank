@@ -78,7 +78,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation , float LaunchSpeed)
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) // Movw the barrel towards a particular AimDirection
 {
 	//if (!Barrel || !Turret) { return; } 
-	if (ensure(Barrel) || ensure(Turret)) { return; }
+	if (!ensure(Barrel) || !ensure(Turret)) { return; }
 	// Where the barrel pointing,compared to where we're asking to point it,and then decide how much we're going to move the 
 	// barrel this frame.
 
