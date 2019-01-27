@@ -11,6 +11,7 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
+	bWantsBeginPlay = true;
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
@@ -18,22 +19,39 @@ UTankAimingComponent::UTankAimingComponent()
 
 void UTankAimingComponent::BeginPlay()
 {
+	Super::BeginPlay();
 	// So that first fire is after initial reload
-	LastFireTime = FPlatformTime::Seconds();
-}
-
-void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
-{
-	if ((FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds)
-	{
-		FiringState = EFiringState::Reloading;
-	}
+     LastFireTime = FPlatformTime::Seconds();
 }
 
 void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
 {
 	Barrel = BarrelToSet;
 	Turret = TurretToSet;
+}
+
+void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
+{
+	//bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) <= ReloadTimeInSeconds;
+	if((FPlatformTime::Seconds() - LastFireTime) <= ReloadTimeInSeconds)
+	{
+		FiringState = EFiringState::Reloading;
+	}
+	else if(IsBarrelMoving())
+	{
+		FiringState = EFiringState::Aiming;
+	}
+	else
+	{
+		FiringState = EFiringState::Locked;
+	}
+}
+
+bool UTankAimingComponent::IsBarrelMoving()
+{
+	if (!ensure(Barrel)) { return false; }
+	auto BarrelForward = Barrel->GetForwardVector();
+	return !BarrelForward.Equals(AimDirection, 0.01);
 }
 
 //void UTankAimingComponent::SetBarrelRefrence(UStaticMeshComponent* BarrelToSet)
@@ -77,7 +95,8 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 
 	if (bHaveAimSolution)
 	{
-		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		//auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+	    AimDirection = OutLaunchVelocity.GetSafeNormal();
 		//UE_LOG(LogTemp, Warning, TEXT("Aiming at %s"), *AimDirection.ToString());
 		MoveBarrelTowards(AimDirection);
 		auto Time = GetWorld()->GetTimeSeconds();
@@ -120,11 +139,11 @@ void UTankAimingComponent::Fire()
 	//auto Time = GetWorld()->GetTimeSeconds();
 	//UE_LOG(LogTemp, Warning, TEXT("%f : Tank Fires"), Time);
 	
-	//bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds; // moved at tick function
+	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds; // moved at tick function
 
 	//if (!Barrel) { return; } now this condition is applied below
 
-	//if (isReloaded)
+	//if (isReloaded)FiringState != EFiringState::Reloading &&
 	if (FiringState != EFiringState::Reloading) // if not reloading then go ahead
 	{
 		if (!ensure(Barrel)) { return; }
@@ -137,6 +156,6 @@ void UTankAimingComponent::Fire()
 			);
 		//projectile and call a method on this 
 		Projectile->LaunchProjectile(LaunchSpeed);
-		// LastFireTime = FPlatformTime::Seconds(); move to beginPlay()
+		 LastFireTime = FPlatformTime::Seconds(); //ove to beginPlay()
 	}
 }

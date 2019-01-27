@@ -29,7 +29,8 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	
+	virtual void BeginPlay() override;
+
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 		void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
@@ -59,11 +60,12 @@ private:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
-	virtual void BeginPlay() override;
-
+	
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
 	void MoveBarrelTowards(FVector AimDirection);
+
+	bool IsBarrelMoving();
 
 	UTankBarrel* Barrel = nullptr;
 	//UStaticMeshComponent* Barrel = nullptr;  // nullptr as a starting point
@@ -80,4 +82,6 @@ private:
 		float ReloadTimeInSeconds = 3;
 
 	double LastFireTime = 0;
+
+	FVector AimDirection;
 };
