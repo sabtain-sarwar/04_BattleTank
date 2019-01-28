@@ -28,5 +28,12 @@ private:
 	
 	UTankTrack();
 
+	// virtual because that's what it is in the parent class. void because that's what comes back,and we have to type override
+	// because we want to make sure that we're overiding a method in the parent class,with exactly that signature
+	virtual void BeginPlay() override;
+
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
+	UFUNCTION()
+		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 };
