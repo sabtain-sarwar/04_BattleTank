@@ -20,6 +20,10 @@ class BATTLETANK_API ATankAIController : public AAIController
 public:
 	virtual void BeginPlay() override;
 	
+protected:
+	// Blueprint is a child class of the c++ class.So that's exactly what protected means,it means the children can read it.
+	UPROPERTY(EditDefaultsOnly , Category = "Setup")
+		float AcceptanceRadius = 8000; // 80 meters
 	
 private:
 	virtual void Tick(float DeltaSeconds) override;
@@ -27,5 +31,5 @@ private:
 	//ATank* GetPlayerTank() const; // returns a pointer to a playertank
 	
 	// How close the AI tank get to the player
-	float AcceptanceRadius = 1000;
+	//float AcceptanceRadius = 1000;
 };

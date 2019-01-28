@@ -49,6 +49,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 		void Fire();
 
+	// const bcz we don't want it changing any of the member variables,we're just getting the firing state.
+	EFiringState GetFiringState() const;
 
 protected:
 	// Declared a variable which is a variable of type EFiringState, which can only takes the values of EFiringState.And we're

@@ -44,7 +44,11 @@ void  ATankAIController::Tick(float DeltaTime)
 		
 		// Fire if ready
 		//ControlledTank->Fire();
-		AimingComponent->Fire();
+		if (AimingComponent->GetFiringState() == EFiringState::Locked)
+		{
+			AimingComponent->Fire();
+		}
+		
 	//}
 }
 
