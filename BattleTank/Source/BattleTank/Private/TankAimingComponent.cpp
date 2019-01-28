@@ -128,8 +128,17 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) // Movw the b
 	//UE_LOG(LogTemp, Warning, TEXT("AimAsRotator : %s"), *BarrelRotator.ToString());
 
 	//Barrel->Elevate(1); // i.e  100% of its speed
+	// Always Yaw the shortest way
 	Barrel->Elevate(DeltaRotator.Pitch);
-	Turret->Rotate(DeltaRotator.Yaw);
+	if (DeltaRotator.Yaw < 180)
+	{
+		Turret->Rotate(DeltaRotator.Yaw);
+	}
+	else
+	{
+		Turret->Rotate(-DeltaRotator.Yaw);
+	}
+	//Turret->Rotate(DeltaRotator.Yaw);
 }
 
 
