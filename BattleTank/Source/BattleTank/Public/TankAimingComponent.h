@@ -14,7 +14,8 @@ enum class EFiringState : uint8
 {
 	Reloading,
 	Aiming,
-	Locked
+	Locked,
+	OutOfAmmo 
 };
 
 
@@ -52,6 +53,9 @@ public:
 	// const bcz we don't want it changing any of the member variables,we're just getting the firing state.
 	EFiringState GetFiringState() const;
 
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+		int GetRoundsLeft() const;
+
 protected:
 	// Declared a variable which is a variable of type EFiringState, which can only takes the values of EFiringState.And we're
 	// initializing it to Reloading
@@ -86,4 +90,6 @@ private:
 	double LastFireTime = 0;
 
 	FVector AimDirection;
+
+	int RoundsLeft = 3;
 };
