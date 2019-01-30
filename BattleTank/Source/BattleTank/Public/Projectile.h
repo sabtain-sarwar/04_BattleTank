@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Engine.h" // added by myself
 #include "GameFramework/ProjectileMovementComponent.h" // added by myself
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
@@ -29,4 +30,9 @@ public:
 protected:	
 	UProjectileMovementComponent* ProjectileMovement = nullptr;
  
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UStaticMeshComponent* CollisionMesh = nullptr; // we're gonna use that to detect that when the projectile hits things
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+		UParticleSystemComponent* LaunchBlast = nullptr;
 };

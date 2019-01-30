@@ -54,7 +54,7 @@ public:
 	EFiringState GetFiringState() const;
 
 	UFUNCTION(BlueprintCallable, Category = "Firing")
-		int GetRoundsLeft() const;
+		int32 GetRoundsLeft() const;
 
 protected:
 	// Declared a variable which is a variable of type EFiringState, which can only takes the values of EFiringState.And we're
@@ -78,18 +78,19 @@ private:
 
 	UTankTurret* Turret = nullptr;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-		float LaunchSpeed = 4000; //float LaunchSpeed = 100000; // starting value of 1000 m/s
-
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		TSubclassOf<AProjectile> ProjectileBlueprint; // <class name> and it does not need a pointer bcz that's built into the
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		float LaunchSpeed = 4000; //float LaunchSpeed = 100000; // starting value of 1000 m/s
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		float ReloadTimeInSeconds = 3;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		int32 RoundsLeft = 3;
 
 	double LastFireTime = 0;
 
 	FVector AimDirection;
-
-	int RoundsLeft = 3;
 };
