@@ -1,8 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "Projectile.h"
-
 
 
 // Sets default values
@@ -19,8 +17,8 @@ AProjectile::AProjectile()
 	LaunchBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Launch Blast"));
 	// We want to make sure that it attaches itself to the CollisionMesh,because the collisonMesh,the thing that's going to
 	// detect what's its hitting,the big canon ball,wants to take with it the particle system
-	//LaunchBlast->AttachToComponenet(RootComponent ,FAttachmentTransformRules::KeepRelativeTransform);
-	LaunchBlast->AttachTo(RootComponent);
+	LaunchBlast->AttachToComponent(RootComponent ,FAttachmentTransformRules::KeepRelativeTransform);
+	//LaunchBlast->AttachTo(RootComponent);
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Projectile Movement"));
 	ProjectileMovement->bAutoActivate = false; // bAutoActivate is a property. what this property means is, it doesn't start
@@ -29,12 +27,13 @@ AProjectile::AProjectile()
 	// thing actually fires
 
 	ImpactBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Impact Blast"));
-	//ImpactBlast->AttachToComponenet(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-	ImpactBlast->AttachTo(RootComponent);
+	ImpactBlast->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	//ImpactBlast->AttachTo(RootComponent);
 	ImpactBlast->bAutoActivate = false;
 
 	ExplosionForce = CreateDefaultSubobject<URadialForceComponent>(FName("Explosion Force"));
-	ExplosionForce->AttachTo(RootComponent);
+	//ExplosionForce->AttachTo(RootComponent);
+	ExplosionForce->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 }
 
 // Called when the game starts or when spawned
@@ -51,6 +50,18 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 	LaunchBlast->Deactivate();
 	ImpactBlast->Activate();
 	ExplosionForce->FireImpulse();
+
+	SetRootComponent(ImpactBlast);
+	CollisionMesh->DestroyComponent();
+
+	FTimerHandle Timer;
+	// We need to go to the world because the worls has in it the TimerManager,and then we can call a SetTimer method on it
+	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AProjectile::OnTimerExpire, DestroyDelay, false);
+}
+
+void AProjectile::OnTimerExpire()
+{
+	Destroy();
 }
 
 void AProjectile::LaunchProjectile(float speed) // Launch projectile at some speed

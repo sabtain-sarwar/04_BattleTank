@@ -4,6 +4,8 @@
 
 #include "Engine.h" // added by myself
 #include "GameFramework/ProjectileMovementComponent.h" // added by myself
+#include "Components/ArrowComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Projectile.generated.h"
@@ -27,6 +29,11 @@ public:
 private:	
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
+	void OnTimerExpire();
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		float DestroyDelay = 10.f;
 
 	UProjectileMovementComponent* ProjectileMovement = nullptr;
  
