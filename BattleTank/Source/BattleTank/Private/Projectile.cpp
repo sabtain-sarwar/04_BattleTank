@@ -9,7 +9,7 @@
 AProjectile::AProjectile()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	CollisionMesh = CreateDefaultSubobject<UStaticMeshComponent>(FName("Collision Mesh"));
 	SetRootComponent(CollisionMesh);
@@ -19,6 +19,7 @@ AProjectile::AProjectile()
 	LaunchBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Launch Blast"));
 	// We want to make sure that it attaches itself to the CollisionMesh,because the collisonMesh,the thing that's going to
 	// detect what's its hitting,the big canon ball,wants to take with it the particle system
+	//LaunchBlast->AttachToComponenet(RootComponent ,FAttachmentTransformRules::KeepRelativeTransform);
 	LaunchBlast->AttachTo(RootComponent);
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Projectile Movement"));
@@ -26,20 +27,26 @@ AProjectile::AProjectile()
 	// flying off until we actually fire at it.That's why we activate this property in LaunchProjectile method.This is saying
 	// when we construct it don't autoActivate,but as soon as we launch set the velocity,then go ahead and activate so the
 	// thing actually fires
+
+	ImpactBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Impact Blast"));
+	//ImpactBlast->AttachToComponenet(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	ImpactBlast->AttachTo(RootComponent);
+	ImpactBlast->bAutoActivate = false;
 }
 
 // Called when the game starts or when spawned
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	// I'm trying to run or access OnComponentHit on a projectile,which actually is not a component,it is an actor.So,what we 
+	// need to do is,we need to register that against the CollisionMesh OnComponentHit.
+	CollisionMesh->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
 }
 
-// Called every frame
-void AProjectile::Tick(float DeltaTime)
+void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	Super::Tick(DeltaTime);
-
+	LaunchBlast->Deactivate();
+	ImpactBlast->Activate();
 }
 
 void AProjectile::LaunchProjectile(float speed) // Launch projectile at some speed
