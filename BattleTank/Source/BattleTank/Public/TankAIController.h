@@ -32,4 +32,10 @@ private:
 	
 	// How close the AI tank get to the player
 	//float AcceptanceRadius = 1000;
+
+	// This get called when the tank is possessed,i.e when the AI tank gets possessed
+	virtual void SetPawn(APawn* InPawn) override;
+
+	UFUNCTION()
+		void OnPossedTankDeath();
 };
