@@ -25,8 +25,10 @@ public:
 	// Called by the engine when something like the projectile is in the range and says that damage sould be taken
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController * EventInstigator, AActor* DamageCauser) override;
 
-	// Sets default values for this pawn's properties
-	ATank();
+	// Return curren health as a percentage of starting health,between 0 and 1
+	UFUNCTION(BlueprintPure, Category = "Health")
+		float GetHealthPercent() const;
+
 	//virtual void BeginPlay() override;
 
 	// setter method . This method get the refrence of barrel from Tank_BP Event Graph.We have given it a category=setup because
@@ -58,6 +60,8 @@ protected:
 	//UPROPERTY(BlueprintReadOnly)
 	//	UTankMovementComponent* TankMovementComponent = nullptr; // to store the pointer
 private:
+	// Sets default values for this pawn's properties
+	ATank();
 
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		int32 StartingHealth = 100;
