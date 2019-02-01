@@ -79,3 +79,19 @@ ATank::ATank()
 	//LastFireTime = FPlatformTime::Seconds();
 	//}
 //}
+
+// because the tank is an actor,there is a method that will be called on the tank automatically if it's in that radius and that
+//  mewthod is AActor::TakeDamage
+float ATank::TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController * EventInstigator, AActor* DamageCauser)
+{
+	int32 DamagePoints = FPlatformMath::RoundToInt(DamageAmount);
+	int32 DamageToApply = FMath::Clamp(DamagePoints, 0, CurrentHealth);
+
+	// UE_LOG(LogTemp, Warning, TEXT("DamageAmount=%f , DamageToApply=%i"), DamageAmount , DamageToApply);
+	CurrentHealth -= DamageToApply;
+	if (CurrentHealth <= 0)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Tank Died"));
+	}
+	return DamageToApply; // return the amount of damage that was taken
+}

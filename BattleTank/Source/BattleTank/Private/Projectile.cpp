@@ -54,6 +54,16 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 	SetRootComponent(ImpactBlast);
 	CollisionMesh->DestroyComponent();
 
+	UGameplayStatics::ApplyRadialDamage(
+		this,// refrence to the context that we're going to apply the damage from,which is the projectile
+		ProjectileDamage, // Damage Amount
+		GetActorLocation(), // origin of the damage
+		ExplosionForce->Radius, // all the actors that are within the radius are going to recieve the 
+		// amount of damage that is determined by the projectile damage
+		UDamageType::StaticClass(),
+		TArray<AActor*>() // array of actors that are going to recieve the damage
+	);
+
 	FTimerHandle Timer;
 	// We need to go to the world because the worls has in it the TimerManager,and then we can call a SetTimer method on it
 	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AProjectile::OnTimerExpire, DestroyDelay, false);

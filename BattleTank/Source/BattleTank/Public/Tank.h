@@ -20,6 +20,13 @@ class BATTLETANK_API ATank : public APawn
 	GENERATED_BODY()
 
 public:
+	//public bcz other classes need to call this method.TakeDamage,leaves the responsibility for taking the damage in the hands 
+	// of the tank.It doesn't have to take damage,but it can decide whether it's going to take damage.But this method will
+	// Called by the engine when something like the projectile is in the range and says that damage sould be taken
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController * EventInstigator, AActor* DamageCauser) override;
+
+	// Sets default values for this pawn's properties
+	ATank();
 	//virtual void BeginPlay() override;
 
 	// setter method . This method get the refrence of barrel from Tank_BP Event Graph.We have given it a category=setup because
@@ -50,9 +57,13 @@ protected:
 
 	//UPROPERTY(BlueprintReadOnly)
 	//	UTankMovementComponent* TankMovementComponent = nullptr; // to store the pointer
-private:	
-	// Sets default values for this pawn's properties
-	ATank();
+private:
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		int32 StartingHealth = 100;
+
+	UPROPERTY(VisibleAnywhere, Category = "Health")
+		int32 CurrentHealth = StartingHealth;
 
 	// below code moved to TankAimingComponent.h
 	// Called to bind functionality to input
