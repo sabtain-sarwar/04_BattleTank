@@ -115,7 +115,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 			HitResult,
 			StartLocation,
 			EndLocation,
-			ECollisionChannel::ECC_Visibility) // that tells us that i want u to go out and hit anything which is visible
+			ECollisionChannel::ECC_Camera) //ECC_Visibility that tells us that i want u 2 go out and hit anything which is visible
 		) // the type that comes out of the line trace is HitResult,so the way we get get the HitLocation is we go the HitResult
 		// which is not in itself the vector we want,and then we go dot and there we got something called Location
 	{
