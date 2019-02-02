@@ -27,6 +27,13 @@ ATank::ATank()
 	// TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Movement Component")); 
 }
 
+void ATank::BeginPlay()
+{
+	Super::BeginPlay();
+	CurrentHealth = StartingHealth;
+}
+
+
 //void ATank::SetBarrelRefrence(UStaticMeshComponent* BarrelToSet)
 //void ATank::SetBarrelRefrence(UTankBarrel* BarrelToSet)
 //{

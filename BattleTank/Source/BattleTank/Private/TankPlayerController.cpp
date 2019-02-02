@@ -4,6 +4,25 @@
 #include "TankPlayerController.h"
 #include "TankAimingComponent.h"
 // #include "Tank.h" 
+#include "Tank.h" 
+
+void ATankPlayerController::SetPawn(APawn * InPawn)
+{
+	Super::SetPawn(InPawn);
+	if (InPawn)
+	{
+		auto PossessedTank = Cast<ATank>(InPawn);
+		if (!ensure(PossessedTank)) { return; }
+
+		// Subscribe our local method to the tank Death's event
+		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnPossedTankDeath);
+	}
+}
+
+void ATankPlayerController::OnPossedTankDeath()
+{
+	StartSpectatingOnly();
+}
 
 
 void ATankPlayerController::BeginPlay()
@@ -55,7 +74,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 	FVector HitLocation; // OUT Parameter
 	// The parameter is going to be used as the OUT parameter 
 	bool bGotHitLocation = GetSightRayHitLocation(HitLocation);
-	UE_LOG(LogTemp, Warning, TEXT("bGotHitLocation : %i"), bGotHitLocation);
+	//UE_LOG(LogTemp, Warning, TEXT("bGotHitLocation : %i"), bGotHitLocation);
 	if (bGotHitLocation) // has "side-effect" , is going to line trace 
 	{
 		//UE_LOG(LogTemp, Warning, TEXT("HitLocation : %s"), *HitLocation.ToString());

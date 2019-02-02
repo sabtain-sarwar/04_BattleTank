@@ -25,8 +25,13 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 		void FoundAimingComponent(UTankAimingComponent* AimComRef);
+
+	UFUNCTION()
+		void OnPossedTankDeath();
 	
 private:
+
+	void SetPawn(APawn * InPawn);
 
 	// If we want to write (void BeginPlay()) we can, but we want to make sure we are overriding and adding to the functionality
 	// that's further up the inheritance tree, because we want to make sure that all that other stuff that Unreal has written 
